@@ -18,15 +18,15 @@ export default function HeaderMe() {
   const Menu = (
     <>
       <div className=" flex ml-3 mb-3">Game list</div>
-        <div className=" flex ml-3 mb-2 text-xs gap-1">
+        <div className=" flex ml-3 mb-2 text-lg gap-1">
           <WholeWordIcon className="h-[1.2rem] w-[1.2rem]" />
           <Link href="/hangman" >Hangman </Link>
         </div>
-        <div className=" flex ml-3 mb-2 text-xs gap-1">
+        <div className=" flex ml-3 mb-2 text-lg gap-1">
           <PuzzlePieceIcon className="h-[1.2rem] w-[1.2rem]"/>  
           <Link href="/jugsaw" >Jigsaw Puzzle </Link>
         </div>
-        <div className=" flex ml-3 mb-2 text-xs gap-1">
+        <div className=" flex ml-3 mb-2 text-lg gap-1">
           <GamepadIcon className="h-[1.2rem] w-[1.2rem]" />  
           <Link href="/next-snake" >Snake </Link>
         </div>

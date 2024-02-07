@@ -51,11 +51,9 @@ export default function SnakeGame() {
     dx: 0,
     dy: 0,
   })
-
     //convex function calls
     const addHighScore = useMutation(api.myFunctions.addHighScore)
     const getHighScore = useQuery(api.myFunctions.getHighScores) 
-   
 
   const clearCanvas = (ctx: CanvasRenderingContext2D) =>
     ctx.clearRect(-1, -1, canvasWidth + 2, canvasHeight + 2)
@@ -92,11 +90,9 @@ export default function SnakeGame() {
   // Reset state and check for highscore
   const gameOver = () => {
     if (score > highscore) {
-      addHighScore({highscore: score})  
-
+      addHighScore({highscore: score})
       localStorage.setItem('highscore', score.toString())
       setNewHighscore(true)
-
     }
     setIsLost(true)
     setRunning(false)
@@ -366,22 +362,18 @@ export default function SnakeGame() {
               Score: {score}
             </p>
             <p>
-            
+ 
             {/*Highscore: {highscore > score ? highscore : score*/}
-
-         
-  
-
               <div className="flex items-center justify-center">
-              <div className='text-lg bg-gradient-to-r p-1 b-1 from-pink-500 via-red-500 to-yellow-500 rounded w-1/3'><div className='bg-slate-800 rounded flex items-center justify-center'>Leader Board </div></div>
-                
+              <div className='text-lg bg-gradient-to-r p-1 b-1 from-pink-500 via-red-500 to-yellow-500 rounded w-1/3'><div className='bg-slate-500 rounded flex items-center justify-center'>Leader Board </div></div>
+
               </div>
               {getHighScore
                     ?.sort((a, b) => b.highscore - a.highscore) // Sort the data by highscore in descending order
-                    .slice(0, 10) // Take the top 10 scores
+                    .slice(0, 5) // Take the top 10 scores
                     .map((hs,index) => (
                       <div key={hs._id} className='gap-2'>
-                        <Card className='mb-4 mt-4 ml-4 mr-4'>
+                        <Card className='mb-4 mt-4 ml-4 mr-4 p-1'>
                           <CardTitle>
                           {index === 0 && ( // Check if current score is the highest
                               <FontAwesomeIcon icon={['fas', 'trophy']} style={{ color: 'gold' }} />
@@ -403,13 +395,12 @@ export default function SnakeGame() {
                         </Card>
                       </div>
                   ))}
-             
             </p>
           </div>
-          
+
           {!isLost && countDown > 0 ? (
             <div className='absolute inset-0 flex items-center justify-center'>
-              <div className='rounded-lg p-10 backdrop-blur-md '>
+              <div className='rounded-lg p-10 backdrop-blur-md mt-24'>
             <Button onClick={startGame} variant="snake">
               {countDown === 4 ? 'Start Game' : countDown}
             </Button>
@@ -428,7 +419,7 @@ export default function SnakeGame() {
           )}
           </Card>
         {isLost && (
-          <div className="flex absolute inset-0 items-center justify-center">
+          <div className="flex absolute inset-1 items-center justify-center">
             <div className="p-10 flex items-center justify-center backdrop-blur-md
               rounded-lg flex-col items-center justify-center border-2 border-gray-200 border-opacity-5">
 
