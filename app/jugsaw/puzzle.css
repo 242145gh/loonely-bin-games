@@ -1,0 +1,17 @@
+/* for the heading  */
+.tag {
+    text-align: center;
+    color: green;
+    margin: 2rem;
+}
+ 
+
+.jigsaw-puzzle {
+    width: 38%;
+    height: 38%;
+    border: 2px solid rgb(137, 136, 136);
+    margin: auto;
+    border-radius: 10px; /* Add rounded corners */
+   
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1); /* Add a subtle box shadow for depth */
+}
