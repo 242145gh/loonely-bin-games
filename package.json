@@ -13,6 +13,11 @@
   },
   "dependencies": {
     "@clerk/clerk-react": "^4.25.2",
+    "@fortawesome/fontawesome-free": "^6.5.1",
+    "@fortawesome/fontawesome-svg-core": "^6.5.1",
+    "@fortawesome/free-brands-svg-icons": "^6.5.1",
+    "@fortawesome/free-solid-svg-icons": "^6.5.1",
+    "@fortawesome/react-fontawesome": "^0.2.0",
     "@heroicons/react": "^2.1.1",
     "@hookform/resolvers": "^3.3.2",
     "@radix-ui/react-accordion": "^1.1.2",
@@ -41,6 +46,7 @@
     "@types/react": "18.2.21",
     "@types/react-dom": "18.2.7",
     "@typescript-eslint/eslint-plugin": "^6.9.0",
+    "@use-it/interval": "^1.0.0",
     "autoprefixer": "^10.4.17",
     "class-variance-authority": "^0.7.0",
     "clsx": "^2.1.0",
@@ -68,6 +74,8 @@
     "tailwindcss": "^3.4.1",
     "tailwindcss-animate": "^1.0.7",
     "typescript": "5.2.2",
+    "webpack": "^5.90.1",
+    "webpack-dashboard": "^3.3.8",
     "zod": "^3.22.4"
   },
   "devDependencies": {

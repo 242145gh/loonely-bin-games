@@ -10,7 +10,7 @@ import { Button } from "@/components/ui/button"
 import { DropdownMenu,  DropdownMenuContent,  DropdownMenuItem,  DropdownMenuTrigger } from "@/components/ui/dropdown-menu"
 import { Sheet, SheetContent, SheetDescription, SheetHeader, SheetTitle, SheetTrigger } from "@/components/ui/sheet";
 import { NavigationMenuList, NavigationMenu, NavigationMenuContent, NavigationMenuItem, NavigationMenuLink, NavigationMenuTrigger } from "@/components/ui/navigation-menu";
-import { MenuIcon, WholeWordIcon } from "lucide-react";
+import { GamepadIcon, MenuIcon, WholeWordIcon } from "lucide-react";
 
 export default function HeaderMe() {
   const { setTheme } = useTheme()
@@ -23,8 +23,12 @@ export default function HeaderMe() {
           <Link href="/hangman" >Hangman </Link>
         </div>
         <div className=" flex ml-3 mb-2 text-xs gap-1">
-          <PuzzlePieceIcon className="h-[1.2rem] w-[1.2rem]" title="Hangman"/>  
+          <PuzzlePieceIcon className="h-[1.2rem] w-[1.2rem]"/>  
           <Link href="/jugsaw" >Jigsaw Puzzle </Link>
+        </div>
+        <div className=" flex ml-3 mb-2 text-xs gap-1">
+          <GamepadIcon className="h-[1.2rem] w-[1.2rem]" />  
+          <Link href="/next-snake" >Snake </Link>
         </div>
         </>
   );
