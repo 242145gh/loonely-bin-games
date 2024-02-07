@@ -23,6 +23,12 @@ export default defineSchema(
       userId: v.string(),
       pictureId: v.string()
     }),
+    highscore: defineTable({
+      highscore: v.number(),
+      name: v.string(),
+      userId: v.string(),
+      pictureId: v.string()
+    })
   },
 
  

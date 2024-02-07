@@ -2,10 +2,11 @@ import { useState, useEffect, useRef } from 'react'
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
 import useInterval from '@use-it/interval'
 import {Button} from "../../components/ui/button"
-import {Card} from "../../components/ui/card"
+import {Card, CardContent, CardTitle} from "../../components/ui/card"
+import {Avatar, AvatarImage, AvatarFallback} from "../../components/ui/avatar"
 import ConfettiExplosion from 'react-confetti-explosion';
-
-import { HeadComponent as Head } from './components/Head'
+import { api } from '../../convex/_generated/api';
+import {useMutation,useQuery} from "convex/react"
 
 type Apple = {
   x: number
@@ -18,6 +19,7 @@ type Velocity = {
 }
 
 export default function SnakeGame() {
+
   // Canvas Settings
   const canvasRef = useRef<HTMLCanvasElement | null>(null)
   const canvasWidth = 500
@@ -49,6 +51,11 @@ export default function SnakeGame() {
     dx: 0,
     dy: 0,
   })
+
+    //convex function calls
+    const addHighScore = useMutation(api.myFunctions.addHighScore)
+    const getHighScore = useQuery(api.myFunctions.getHighScores) 
+   
 
   const clearCanvas = (ctx: CanvasRenderingContext2D) =>
     ctx.clearRect(-1, -1, canvasWidth + 2, canvasHeight + 2)
@@ -85,9 +92,11 @@ export default function SnakeGame() {
   // Reset state and check for highscore
   const gameOver = () => {
     if (score > highscore) {
-      setHighscore(score)
+      addHighScore({highscore: score})  
+
       localStorage.setItem('highscore', score.toString())
       setNewHighscore(true)
+
     }
     setIsLost(true)
     setRunning(false)
@@ -257,8 +266,8 @@ export default function SnakeGame() {
   // DidMount Hook for Highscore
   useEffect(() => {
     setHighscore(
-      localStorage.getItem('highscore')
-        ? parseInt(localStorage.getItem('highscore')!)
+        localStorage.getItem('highscore')
+        ?  parseInt(localStorage.getItem('highscore')!)
         : 0
     )
   }, [])
@@ -339,9 +348,9 @@ export default function SnakeGame() {
 
   return (
     <>
-      <div className='flex items-center justify-center text-4xl mt-5 text-green-500'>Snake</div>
+      <div className='flex items-center justify-center text-4xl text-green-500'>Snake</div>
       <main className='flex relative items-center justify-center'>
-      <Card className='mt-24 p-2 '>
+      <Card className=' p-2 '>
       <div className="bg-gradient-to-r from-pink-500 via-red-500 to-yellow-500 p-1 rounded-lg">
        
         <canvas className='flex h-full w-full items-center justify-center bg-gray-800 back rounded-lg '
@@ -357,8 +366,44 @@ export default function SnakeGame() {
               Score: {score}
             </p>
             <p>
-              <FontAwesomeIcon icon={['fas', 'trophy']} />
-              Highscore: {highscore > score ? highscore : score}
+            
+            {/*Highscore: {highscore > score ? highscore : score*/}
+
+         
+  
+
+              <div className="flex items-center justify-center">
+              <div className='text-lg bg-gradient-to-r p-1 b-1 from-pink-500 via-red-500 to-yellow-500 rounded w-1/3'><div className='bg-slate-800 rounded flex items-center justify-center'>Leader Board </div></div>
+                
+              </div>
+              {getHighScore
+                    ?.sort((a, b) => b.highscore - a.highscore) // Sort the data by highscore in descending order
+                    .slice(0, 10) // Take the top 10 scores
+                    .map((hs,index) => (
+                      <div key={hs._id} className='gap-2'>
+                        <Card className='mb-4 mt-4 ml-4 mr-4'>
+                          <CardTitle>
+                          {index === 0 && ( // Check if current score is the highest
+                              <FontAwesomeIcon icon={['fas', 'trophy']} style={{ color: 'gold' }} />
+                              )}
+                          {index === 1 && (
+                            <FontAwesomeIcon icon={['fas', 'trophy']} style={{ color: '#c0c0c0' }} />
+                            )}
+                          {index === 2 && (
+                            <FontAwesomeIcon icon={['fas', 'trophy']} style={{ color: '#cd7f32' }} />)}
+                            <Avatar>
+                              <AvatarImage src={hs.pictureId} />
+                              <AvatarFallback>CN</AvatarFallback>
+                            </Avatar>
+                            {hs.name}
+                          </CardTitle>
+                          <CardContent>
+                            {hs.highscore}
+                          </CardContent>
+                        </Card>
+                      </div>
+                  ))}
+             
             </p>
           </div>
           
@@ -397,9 +442,9 @@ export default function SnakeGame() {
             </div>
 
             {!running && isLost && (
-              <Button onClick={startGame}  className="mt-2 " variant="snake">
-                {countDown === 4 ? 'Restart Game' : countDown}
-              </Button>
+             <Button onClick={startGame} className="mt-2" variant="snake">
+             {countDown === 4 ? 'Restart Game' : countDown}
+           </Button>
             )}
             </div>
             </div>

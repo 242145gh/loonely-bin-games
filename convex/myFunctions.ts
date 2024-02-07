@@ -100,11 +100,34 @@ export const addComment = mutation({
   },
 });
 
-
-
-
-
-
 export const allComments = query(async (ctx) => {
   return await ctx.db.query("jigsaw").order("desc").collect();
 });
+
+export const addHighScore = mutation({
+  args: {
+      highscore: v.number(),
+  },
+
+  handler: async (ctx, args) => {
+    const identity = await ctx.auth.getUserIdentity();
+
+    if (!identity) {
+      throw new Error("Called Highscore without authentication!");
+    }
+
+    const id = await ctx.db.insert("highscore", {
+      highscore: args.highscore,
+      name: identity.name! || "Anon",
+      userId: identity.subject || "Anon",
+      pictureId: identity.pictureUrl! || "Anon"
+    });
+
+    console.log("highscore added:", id);
+  },
+});
+
+export const getHighScores = query(async (ctx) => {
+  return await ctx.db.query("highscore").collect();
+});
+
