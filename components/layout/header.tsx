@@ -68,8 +68,20 @@ export default function HeaderMe() {
         </SheetHeader>
       </SheetContent>
       </Sheet>
-          <Link className=" flex size-lg bold" href="/">looney bin</Link>
+          <Link className="flex absolute ml-10 size-lg bold" href="/">looney bin</Link>
               <div className="flex mr-1 p-2 gap-2">
+              <NavigationMenu>
+      <NavigationMenuList>
+        <NavigationMenuItem>
+          <NavigationMenuTrigger></NavigationMenuTrigger>
+          <NavigationMenuContent>
+            <NavigationMenuLink>
+              {Menu}
+            </NavigationMenuLink>
+          </NavigationMenuContent>
+        </NavigationMenuItem>
+      </NavigationMenuList>
+      </NavigationMenu>
               <DropdownMenu >
           <DropdownMenuTrigger asChild>
             <Button variant="default" size="icon">
@@ -93,18 +105,7 @@ export default function HeaderMe() {
               <SignInAndSignUpButtons />
             </div>
               </div>
-              <NavigationMenu>
-      <NavigationMenuList>
-        <NavigationMenuItem>
-          <NavigationMenuTrigger></NavigationMenuTrigger>
-          <NavigationMenuContent>
-            <NavigationMenuLink>
-              {Menu}
-            </NavigationMenuLink>
-          </NavigationMenuContent>
-        </NavigationMenuItem>
-      </NavigationMenuList>
-      </NavigationMenu>
+              
               </StickyHeader>
           </>
         );
