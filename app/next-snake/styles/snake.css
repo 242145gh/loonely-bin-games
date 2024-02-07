@@ -1,0 +1,63 @@
+/*
+  Based on TailwindCSS recommendations,
+  consider using classes instead of the `@apply` directive
+  @see https://tailwindcss.com/docs/reusing-styles#avoiding-premature-abstraction
+*/
+html,
+body {
+  @apply w-full h-full bg-[#EEF1F4] text-[#11253E] inline-flex justify-center items-center m-0 p-0;
+  font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Oxygen,
+    Ubuntu, Cantarell, "Open Sans", "Helvetica Neue", sans-serif;
+}
+main {
+  @apply bg-[#F2F5F7] shadow-[0px_4px_18px_rgba(18,38,63,0.12)] relative inline-block overflow-hidden rounded-md;
+}
+canvas {
+  @apply bg-[white] shadow-[0px_2px_4px_rgba(227,233,237,0.5)];
+}
+section {
+  @apply h-[66px] flex justify-between items-center box-border pt-0 pb-0.5 px-[18px];
+}
+section p {
+  @apply m-0 p-0;
+}
+section p:not(:first-child) {
+  @apply mt-1.5 mb-0 mx-0;
+}
+section p svg {
+  @apply w-[18px] text-center ml-0 mr-1.5 my-0;
+}
+section .score {
+  @apply pt-0 pb-0.5 px-0;
+}
+section .controls {
+  @apply text-right pt-0 pb-0.5 px-0;
+}
+section .controls svg {
+  @apply ml-1.5 mr-0 my-0;
+}
+button {
+  @apply min-w-[120px] text-base leading-[21px] text-center text-[white] bg-[#0170F3] rounded shadow-[0_4px_12px_rgba(1,112,243,0.3)] box-border flex justify-center items-center cursor-pointer m-0 px-[18px] py-2 border-[none];
+}
+div.game-overlay {
+  @apply w-full h-[381px] box-border bg-[rgba(255,255,255,0.5)] backdrop-blur-[6px] flex flex-col items-center justify-center flex-wrap absolute p-5 rounded-[4px_4px_0_0] left-0 top-0;
+  -webkit-backdrop-filter: blur(6px);
+}
+div.game-overlay p {
+  @apply m-0 p-0;
+}
+div.game-overlay p.large {
+  @apply text-[28px] font-semibold mt-3 mb-0 mx-0;
+}
+div.game-overlay p.final-score {
+  @apply text-base font-light mt-1.5 mb-0 mx-0;
+}
+div.game-overlay p.final-score + button {
+  @apply mt-[18px] mb-0 mx-0;
+}
+footer {
+  @apply w-full text-xs text-[#617691] fixed opacity-60 text-center left-0 bottom-[30px];
+}
+footer a {
+  @apply text-inherit font-medium no-underline;
+}
