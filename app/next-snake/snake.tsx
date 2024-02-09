@@ -1,3 +1,4 @@
+"use client"
 import { useState, useEffect, useRef } from 'react'
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
 import useInterval from '@use-it/interval'
@@ -7,6 +8,15 @@ import {Avatar, AvatarImage, AvatarFallback} from "../../components/ui/avatar"
 import ConfettiExplosion from 'react-confetti-explosion';
 import { api } from '../../convex/_generated/api';
 import {useMutation,useQuery} from "convex/react"
+import {
+  Table,
+  TableBody,
+  TableCell,
+  TableHead,
+  TableHeader,
+  TableRow,
+  
+} from "../../components/ui/table"
 
 type Apple = {
   x: number
@@ -17,6 +27,8 @@ type Velocity = {
   dx: number
   dy: number
 }
+
+
 
 export default function SnakeGame() {
 
@@ -342,6 +354,7 @@ export default function SnakeGame() {
     }
   }, [previousVelocity])
 
+
   return (
     <>
       <div className='flex items-center justify-center text-4xl text-green-500'>Snake</div>
@@ -368,13 +381,15 @@ export default function SnakeGame() {
               <div className='text-lg bg-gradient-to-r p-1 b-1 from-pink-500 via-red-500 to-yellow-500 rounded w-1/3'><div className='bg-slate-500 rounded flex items-center justify-center'>Leader Board </div></div>
 
               </div>
+              <div className='p-5'>
+              <Table className='w-full border-2'>
               {getHighScore
                     ?.sort((a, b) => b.highscore - a.highscore) // Sort the data by highscore in descending order
                     .slice(0, 5) // Take the top 10 scores
                     .map((hs,index) => (
                       <div key={hs._id} className='gap-2'>
-                        <Card className='mb-4 mt-4 ml-4 mr-4 p-1'>
-                          <CardTitle>
+                        <TableRow >
+                        <TableCell>
                           {index === 0 && ( // Check if current score is the highest
                               <FontAwesomeIcon icon={['fas', 'trophy']} style={{ color: 'gold' }} />
                               )}
@@ -383,18 +398,25 @@ export default function SnakeGame() {
                             )}
                           {index === 2 && (
                             <FontAwesomeIcon icon={['fas', 'trophy']} style={{ color: '#cd7f32' }} />)}
+                           
                             <Avatar>
                               <AvatarImage src={hs.pictureId} />
                               <AvatarFallback>CN</AvatarFallback>
                             </Avatar>
+                            </TableCell>
+                            <TableCell className='w-full'>
                             {hs.name}
-                          </CardTitle>
-                          <CardContent>
+                            </TableCell>
+                          
+                          <TableCell >
                             {hs.highscore}
-                          </CardContent>
-                        </Card>
+                          </TableCell>
+                        </TableRow>
                       </div>
-                  ))}
+                     
+                  ))} </Table>
+                  </div>
+                 
             </p>
           </div>
 
@@ -418,12 +440,12 @@ export default function SnakeGame() {
             </div>
           )}
           </Card>
-        {isLost && (
-          <div className="flex absolute inset-1 items-center justify-center">
+          {isLost && (
+            <div className="flex absolute inset-1 items-center justify-center">
             <div className="p-10 flex items-center justify-center backdrop-blur-md
-              rounded-lg flex-col items-center justify-center border-2 border-gray-200 border-opacity-5">
+        rounded-lg flex-col items-center justify-center border-2 border-gray-200 border-opacity-5"> 
 
-            <div className="text-4xl">Game Over</div>
+          <div className="text-4xl">Game Over</div>
             <div className="text-xl">
 
               {newHighscore ?  ( <> 🎉 New Highscore 🎉
@@ -440,7 +462,7 @@ export default function SnakeGame() {
             </div>
             </div>
         )}
-      
+            
          </main>
  
      
