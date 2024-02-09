@@ -17,6 +17,8 @@ import {
   TableRow,
   
 } from "../../components/ui/table"
+import { ImageIcon, Space } from 'lucide-react'
+import Image from 'next/image'
 
 type Apple = {
   x: number
@@ -381,15 +383,15 @@ export default function SnakeGame() {
               <div className='text-lg bg-gradient-to-r p-1 b-1 from-pink-500 via-red-500 to-yellow-500 rounded w-1/3'><div className='bg-slate-500 rounded flex items-center justify-center'>Leader Board </div></div>
 
               </div>
-              <div className='p-5'>
-              <Table className='w-full border-2'>
+              <div className='p-2 '>
+              <Table className='w-full border-2 '>
               {getHighScore
                     ?.sort((a, b) => b.highscore - a.highscore) // Sort the data by highscore in descending order
                     .slice(0, 5) // Take the top 10 scores
                     .map((hs,index) => (
                       <div key={hs._id} className='gap-2'>
-                        <TableRow >
-                        <TableCell>
+                        <TableRow>
+                        <TableCell >
                           {index === 0 && ( // Check if current score is the highest
                               <FontAwesomeIcon icon={['fas', 'trophy']} style={{ color: 'gold' }} />
                               )}
@@ -398,8 +400,8 @@ export default function SnakeGame() {
                             )}
                           {index === 2 && (
                             <FontAwesomeIcon icon={['fas', 'trophy']} style={{ color: '#cd7f32' }} />)}
-                           
-                            <Avatar>
+                            
+                            <Avatar className='w-5 h-30'>
                               <AvatarImage src={hs.pictureId} />
                               <AvatarFallback>CN</AvatarFallback>
                             </Avatar>

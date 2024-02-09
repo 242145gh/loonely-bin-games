@@ -1,4 +1,5 @@
-"use client";
+"use client"
+ 
 import * as React from "react"
 import { Authenticated, Unauthenticated } from "convex/react";
 import { Link } from "@/components/typography/link";
@@ -11,53 +12,59 @@ import { DropdownMenu,  DropdownMenuContent,  DropdownMenuItem,  DropdownMenuTri
 import { Sheet, SheetContent, SheetDescription, SheetHeader, SheetTitle, SheetTrigger } from "@/components/ui/sheet";
 import { NavigationMenuList, NavigationMenu, NavigationMenuContent, NavigationMenuItem, NavigationMenuLink, NavigationMenuTrigger } from "@/components/ui/navigation-menu";
 import { GamepadIcon, MenuIcon, WholeWordIcon } from "lucide-react";
+import CommandMenu from "@/components/command-search"
 
 export default function HeaderMe() {
   const { setTheme } = useTheme()
 
   const Menu = (
     <>
-      <div className=" flex ml-3 mb-3">Game list</div>
-        <div className=" flex ml-3 mb-2 text-lg gap-1">
+    <div className="flex justify-center p-4">
+       <SignInAndSignUpButtons/>
+       </div>
+     
+        <div className=" flex ml-3 mb-2 text-xs gap-1">
           <WholeWordIcon className="h-[1.2rem] w-[1.2rem]" />
           <Link href="/hangman" >Hangman </Link>
         </div>
-        <div className=" flex ml-3 mb-2 text-lg gap-1">
+        <div className=" flex ml-3 mb-2 text-xs gap-1">
           <PuzzlePieceIcon className="h-[1.2rem] w-[1.2rem]"/>  
           <Link href="/jugsaw" >Jigsaw Puzzle </Link>
         </div>
-        <div className=" flex ml-3 mb-2 text-lg gap-1">
+        <div className=" flex ml-3 mb-2 text-xs gap-1">
           <GamepadIcon className="h-[1.2rem] w-[1.2rem]" />  
           <Link href="/next-snake" >Snake </Link>
         </div>
+        
         </>
   );
 
+
   function SignInAndSignUpButtons() {
     return (
-      <div className="flex gap-4">
+      <div className="flex gap-4 ">
         <Authenticated>
           <UserButton afterSignOutUrl="#" />
         </Authenticated>
         <Unauthenticated>
-          <SignInButton mode="redirect">
-            <Button variant="ghost">Sign in</Button>
+          <SignInButton mode="redirect" >
+            <Button variant="ghost" className="h-6">Sign in</Button>
           </SignInButton>
           <SignUpButton mode="redirect">
-            <Button>Sign up</Button>
+            <Button className="h-6">Sign up</Button>
           </SignUpButton>
         </Unauthenticated>
       </div>
   );
 }
-
   return (
-    <>
       <StickyHeader>
           <div className="flex justify-between items-center ml-2">
           <Sheet>
       <SheetTrigger>
-        <MenuIcon/>
+  <div className="hover-bg-slate bg-radius hover:rounded-full ">
+    <MenuIcon />
+  </div>
       </SheetTrigger>
       <SheetContent side={"left"}>
         <SheetHeader>
@@ -68,9 +75,10 @@ export default function HeaderMe() {
         </SheetHeader>
       </SheetContent>
       </Sheet>
-          <Link className="flex absolute ml-10 size-lg bold" href="/">looney bin</Link>
+          <Link className="flex absolute ml-10 size-lg bold" href="/"><div className="hidden md:block ">looney bin</div></Link>
               <div className="flex mr-1 p-2 gap-2">
-              <NavigationMenu>
+       <CommandMenu />
+              <NavigationMenu className="h-6">
       <NavigationMenuList>
         <NavigationMenuItem>
           <NavigationMenuTrigger></NavigationMenuTrigger>
@@ -84,7 +92,7 @@ export default function HeaderMe() {
       </NavigationMenu>
               <DropdownMenu >
           <DropdownMenuTrigger asChild>
-            <Button variant="default" size="icon">
+            <Button variant="default" size="icon" className="h-6 w-5">
               <SunIcon className="h-[1.2rem] w-[1.2rem] rotate-0 scale-100 transition-all dark:-rotate-90 dark:scale-0" />
               <MoonIcon className="absolute h-[1.2rem] w-[1.2rem] rotate-90 scale-0 transition-all dark:rotate-0 dark:scale-100" />
               <span className="sr-only">Toggle theme</span>
@@ -107,6 +115,6 @@ export default function HeaderMe() {
               </div>
               
               </StickyHeader>
-          </>
+          
         );
       }
