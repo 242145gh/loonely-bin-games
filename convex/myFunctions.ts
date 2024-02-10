@@ -131,3 +131,19 @@ export const getHighScores = query(async (ctx) => {
   return await ctx.db.query("highscore").collect();
 });
 
+export const commandSearch = query({
+  args: {
+    gamename: v.string(),
+    
+  },
+
+  handler: async (ctx, args) => {
+    
+    return await ctx.db
+    .query("games")
+    .withSearchIndex("search_games", (q) =>
+      q.search("gamename", args.gamename)
+    ).take(10);
+     
+  }
+});

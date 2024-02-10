@@ -28,9 +28,15 @@ export default defineSchema(
       name: v.string(),
       userId: v.string(),
       pictureId: v.string()
-    })
-  },
+    }),
+    games: defineTable({
+      gamename: v.string(),
+      link: v.string(),
+      icon: v.string(),
+    }).searchIndex("search_games", {
+      searchField: "gamename",
+     
+  }),
 
- 
-
+}
 );

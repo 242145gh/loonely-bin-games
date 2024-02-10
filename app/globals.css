@@ -74,25 +74,9 @@
   body {
     @apply bg-background text-foreground;
   }
-
-  
-  
-}
-
-
-@screen sm {
-  .logo{
-    cursor: auto;
-    visibility: none;
-  }
-}
-
-.logo{
- background-color: rgb(145, 43, 130);
 }
 
 .hover-bg-slate:hover {
   background-color: #6b7280;
 
-   /* Adjust the color code as needed */
 }

@@ -1,12 +1,20 @@
-
+"use client"
 import * as React from "react"
-import {  CalendarIcon,  EnvelopeClosedIcon,  FaceIcon,  GearIcon,  PersonIcon,  RocketIcon} from "@radix-ui/react-icons"
+import { useState,KeyboardEvent} from "react"
 import {  Command,    CommandDialog,    CommandEmpty,    CommandGroup,    CommandInput,    CommandItem,    CommandList,    CommandSeparator,    CommandShortcut  } from "@/components/ui/command"
-import { SearchIcon } from "lucide-react"
+import { GamepadIcon, SearchIcon } from "lucide-react"
 import { Button } from "./ui/button"
+import { api } from '../convex/_generated/api';
+import {useMutation,useQuery} from "convex/react"
+import Link from "next/link"
+
 
 export default function CommandMenu() {
-    const [open, setOpen] = React.useState(false)
+    const [open, setOpen] = useState(false)
+    const [search, setCommandSearch] = useState('');
+
+    const  commandSearch = useQuery(api.myFunctions.commandSearch, {gamename: search})
+  
     React.useEffect(() => {
       const down = (e: KeyboardEvent) => {
         if (e.key === "j" || e.key === "J" && (e.metaKey || e.ctrlKey)) {
@@ -19,49 +27,50 @@ export default function CommandMenu() {
       return () => document.removeEventListener("keydown", down)
     }, [])
 
+
+    const onChangeHandler = (e: any) => {
+      console.log(e.target.value)
+     
+      setCommandSearch(e.target.value);
+    };
+
+    const handleKeyDown = (e: KeyboardEvent, link: string) => {
+      if (e.key === 'Enter') {
+          e.preventDefault();
+          window.location.href = link; // Navigate to the link
+      }
+  }
+
+    console.log(commandSearch)
+
     return (<>
     <Button onClick={()=> setOpen((open) => !open)
-    } className=" border-1 rounded h-6 w-22" placeholder="Search for games">
+    } className=" rounded h-6 w-22" placeholder="Search for games">
         <div className="flex justify-between items-center"><SearchIcon className="w-4 h-4"/><div className="ml-2 mr-10">Search Games ...</div><CommandShortcut>⌘J</CommandShortcut></div>
     </Button>
     
       <CommandDialog open={open} onOpenChange={setOpen}>
-      <CommandInput placeholder="Type a command or search..." />
+      <CommandInput placeholder="Type a command or search..." onChangeCapture={onChangeHandler}/>
       <CommandList>
-        <CommandEmpty>No results found.</CommandEmpty>
-        <CommandGroup heading="Suggestions">
-          <CommandItem>
-            <CalendarIcon className="mr-2 h-4 w-4" />
-            <span>Calendar</span>
-          </CommandItem>
-          <CommandItem>
-            <FaceIcon className="mr-2 h-4 w-4" />
-            <span>Search Emoji</span>
-          </CommandItem>
-          <CommandItem>
-            <RocketIcon className="mr-2 h-4 w-4" />
-            <span>Launch</span>
-          </CommandItem>
-        </CommandGroup>
-        <CommandSeparator />
-        <CommandGroup heading="Settings">
-          <CommandItem>
-            <PersonIcon className="mr-2 h-4 w-4" />
-            <span>Profile</span>
-            <CommandShortcut>⌘P</CommandShortcut>
-          </CommandItem>
-          <CommandItem>
-            <EnvelopeClosedIcon className="mr-2 h-4 w-4" />
-            <span>Mail</span>
-            <CommandShortcut>⌘B</CommandShortcut>
-          </CommandItem>
-          <CommandItem>
-            <GearIcon className="mr-2 h-4 w-4" />
-            <span>Settings</span>
-            <CommandShortcut>⌘S</CommandShortcut>
-          </CommandItem>
-        </CommandGroup>
+      <CommandEmpty>No results found.</CommandEmpty>
+      <CommandGroup heading="Games">
+  
+          {commandSearch?.map((c) => (
+             <Link href={c.link}>
+             <CommandItem key={c._id} onKeyDown={(e) => handleKeyDown(e, c.link)} tabIndex={0}>
+                           
+              
+            {c.gamename}                
+           
+       </CommandItem>
+
+       </Link>   
+       
+          ))}
+      
+      </CommandGroup>
       </CommandList>
+        
     </CommandDialog>
     </> )
   }

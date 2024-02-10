@@ -1,6 +1,6 @@
 "use client"
  
-import * as React from "react"
+
 import { Authenticated, Unauthenticated } from "convex/react";
 import { Link } from "@/components/typography/link";
 import { SignInButton, SignUpButton, UserButton } from "@clerk/clerk-react";
