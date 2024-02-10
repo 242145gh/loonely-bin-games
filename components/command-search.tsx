@@ -1,6 +1,6 @@
 "use client"
 import * as React from "react"
-import { useState,KeyboardEvent} from "react"
+import { useState} from "react"
 import {  Command,    CommandDialog,    CommandEmpty,    CommandGroup,    CommandInput,    CommandItem,    CommandList,    CommandSeparator,    CommandShortcut  } from "@/components/ui/command"
 import { GamepadIcon, SearchIcon } from "lucide-react"
 import { Button } from "./ui/button"
@@ -34,7 +34,7 @@ export default function CommandMenu() {
       setCommandSearch(e.target.value);
     };
 
-    const handleKeyDown = (e: KeyboardEvent, link: string) => {
+    const handleKeyDown = (e: React.KeyboardEvent<HTMLDivElement>, link: string) => {
       if (e.key === 'Enter') {
           e.preventDefault();
           window.location.href = link; // Navigate to the link
