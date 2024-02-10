@@ -63,7 +63,7 @@ export default function CommandMenu() {
 
             <CommandDialog open={open} onOpenChange={setOpen}>
                 <CommandInput placeholder="Type a command or search..." 
-                onChangeCapture={onChangeHandler} onKeyDown={handleKeyDown} />
+                onChange={onChangeHandler} onKeyDown={handleKeyDown} />
                 <CommandList>
                     <CommandEmpty>No results found.</CommandEmpty>
                     <CommandGroup heading="Games">
