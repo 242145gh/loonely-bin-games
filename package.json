@@ -76,6 +76,7 @@
     "tailwindcss": "^3.4.1",
     "tailwindcss-animate": "^1.0.7",
     "typescript": "5.2.2",
+    "use-debounce": "^10.0.0",
     "webpack": "^5.90.1",
     "webpack-dashboard": "^3.3.8",
     "zod": "^3.22.4"

@@ -401,7 +401,7 @@ export default function SnakeGame() {
                           {index === 2 && (
                             <FontAwesomeIcon icon={['fas', 'trophy']} style={{ color: '#cd7f32' }} />)}
                             
-                            <Avatar className='w-5 h-30'>
+                            <Avatar>
                               <AvatarImage src={hs.pictureId} />
                               <AvatarFallback>CN</AvatarFallback>
                             </Avatar>
