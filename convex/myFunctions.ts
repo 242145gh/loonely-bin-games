@@ -147,3 +147,37 @@ export const commandSearch = query({
      
   }
 });
+
+export const blogSearch = query({
+  args: {
+    body: v.string(),
+    
+  },
+
+  handler: async (ctx, args) => {
+    
+    return await ctx.db
+    .query("blog")
+    .withSearchIndex("search_blog", (q) =>
+      q.search("body", args.body)
+    ).take(10);
+     
+  }
+});
+
+
+export const getBlog = query({
+  args: {
+    _id: v.string(),
+    
+  },
+
+  handler: async (ctx, args) => {
+    
+    return await ctx.db
+    .query("blog")
+    .filter((q) => q.eq(q.field("_id"), args._id))
+    .collect();
+     
+  }
+});

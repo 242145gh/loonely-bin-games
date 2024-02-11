@@ -35,8 +35,16 @@ export default defineSchema(
       icon: v.string(),
     }).searchIndex("search_games", {
       searchField: "gamename",
+    }),  
+    blog: defineTable({
+      title: v.string(),
+      body: v.string(),
+    }).searchIndex("search_blog", {
+      searchField: "body",
+    }),  
+  
      
-  }),
+  
 
 }
 );

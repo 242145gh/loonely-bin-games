@@ -18,7 +18,7 @@ export default function CommandMenu() {
    
 
     const commandSearch = useQuery(api.myFunctions.commandSearch, { gamename: search });
-
+    const blogSearch = useQuery(api.myFunctions.blogSearch, { body: search });
     React.useEffect(() => {
         const down = (e: KeyboardEvent) => {
             if ((e.key === "j" && (e.metaKey || e.ctrlKey)) || e.key === "/") {
@@ -42,18 +42,14 @@ export default function CommandMenu() {
       if (e.key === "Enter") {
           console.log("hello");
           console.log("link is:", link);
-          setLink(link)
           router.replace(link)
-              
+ 
           }
-        
-      }
-  
-    
+     }
 
     return (
         <>
-            <Button onClick={() => setOpen((open) => !open)} className="rounded h-6 w-22" placeholder="Search for games">
+            <Button onClick={() => setOpen((open) => !open)} className="rounded-full h-6 w-22" placeholder="Search for games">
                 <div className="flex justify-between items-center">
                     <SearchIcon className="w-4 h-4" />
                     <div className="ml-2 mr-10">Search Games ...</div>
@@ -63,18 +59,30 @@ export default function CommandMenu() {
 
             <CommandDialog open={open} onOpenChange={setOpen}>
                 <CommandInput placeholder="Type a command or search..." 
-                onChange={onChangeHandler} onKeyDown={handleKeyDown} />
+                onChangeCapture={onChangeHandler} onKeyDownCapture={handleKeyDown} />
                 <CommandList>
                     <CommandEmpty>No results found.</CommandEmpty>
-                    <CommandGroup heading="Games">
+                    <CommandGroup heading="Blog Pages">
+                        {blogSearch?.map((c) => (
+                            <Link key={c._id} href={`/blog/${c._id}`}>
+                                <CommandItem onSelect={() => setLink(`/blog/`+c._id)}>
+                                    {c.body}
+                                     
+                                </CommandItem>
+                            </Link>
+                        ))}
+                        </CommandGroup>
+                       
+                        <CommandGroup heading="Games">
                         {commandSearch?.map((c) => (
                             <Link key={c._id} href={c.link}>
                                 <CommandItem onSelect={() => setLink(c.link)}>
                                     {c.gamename}
+                                    
                                 </CommandItem>
                             </Link>
                         ))}
-                    </CommandGroup>
+                   </CommandGroup>
                 </CommandList>
             </CommandDialog>
         </>

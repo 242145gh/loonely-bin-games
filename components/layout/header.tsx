@@ -17,6 +17,13 @@ import CommandMenu from "@/components/command-search"
 export default function HeaderMe() {
   const { setTheme } = useTheme()
 
+  const blogPosts = [
+    { id: '1', title: 'First Blog Post' },
+    { id: '2', title: 'Second Blog Post' },
+    { id: '3', title: 'Third Blog Post' },
+  ];
+
+
   const Menu = (
     <>
     <div className="flex justify-center p-4">
@@ -35,8 +42,7 @@ export default function HeaderMe() {
           <GamepadIcon className="h-[1.2rem] w-[1.2rem]" />  
           <Link href="/next-snake" >Snake </Link>
         </div>
-        
-        </>
+          </>
   );
 
 
