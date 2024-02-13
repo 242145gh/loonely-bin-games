@@ -64,12 +64,7 @@ export default function JigsawPuzzleComponent() {
    
     <HeaderMe />
     <Authenticated>
-                <div className='flex py-2 items-center justify-center text-lg font-bold text-green-600'>{text}
-                {isExploding &&  <ConfettiExplosion force={0.5} zIndex={1} duration={2500} particleSize={5} height="120vh" colors={[
-                    '#FFC700','#FF0000','#2E3191','#41BBC7','#fc59a3','#87c830','#ffd400','#fe7e0f','#8e3ccb']} particleCount={450} />}              
-             
-
-               </div>
+                
             <Card className='p-5 ml-5 mr-5 mt-1 mb-5'>
             <Button className='mb-4 mt-4 ml-4 mr-4' variant="ghost" onClick={() => {
                 setJigsaw({
@@ -82,8 +77,14 @@ export default function JigsawPuzzleComponent() {
             }}>
             Play again
             </Button>
-        
+            <div className='flex py-2 items-center justify-center text-lg font-bold text-green-600'>{text}
+                {isExploding &&  <ConfettiExplosion force={0.5} zIndex={1} duration={2500} particleSize={5} height="120vh" colors={[
+                    '#FFC700','#FF0000','#2E3191','#41BBC7','#fc59a3','#87c830','#ffd400','#fe7e0f','#8e3ccb']} particleCount={450} />}              
+             
+
+               </div>
                 <JigsawPuzzle {...jigsaw} />
+                
             </Card>
            
    

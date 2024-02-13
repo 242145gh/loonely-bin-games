@@ -12,7 +12,7 @@ const inter = Inter({ subsets: ["latin"] });
 
 export const metadata: Metadata = {
   title: "Looney Bin",
-  description: "Crazy games for you",
+  description: "Looney times here at the bin of games ",
 };
 
 export default function RootLayout({
@@ -36,7 +36,7 @@ export default function RootLayout({
 				  </ReduxProvider>
         </ConvexClientProvider>
         </ThemeProvider>
-        <Footer>Lonely Bin Footer copyright!</Footer>
+        <Footer>looney bin</Footer>
       </body>
     </html>
   );

@@ -13,11 +13,14 @@ import { Button } from "@/components/ui/button"
 import HeaderMe from "@/components/layout/header";
 import  Image  from "next/image"
 
+
 export default function Home() {
+ 
   return (
     <>
     <HeaderMe />
           <Authenticated>
+           
           <SignedInContent />
         </Authenticated>
         <Unauthenticated>
@@ -48,6 +51,7 @@ export default function Home() {
         </div>
       </section>
     </main>
+    
         </Unauthenticated>
     </>
   );
@@ -71,6 +75,9 @@ export default function Home() {
       </>
     );
   }
+
+
+
   return (
     <>
     

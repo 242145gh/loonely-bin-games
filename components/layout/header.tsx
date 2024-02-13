@@ -68,7 +68,7 @@ export default function HeaderMe() {
           <div className="flex justify-between items-center ml-2">
           <Sheet>
       <SheetTrigger>
-  <div className="hover-bg-slate bg-radius hover:rounded-full ">
+  <div className="rounded-full ring-secondary/50 hover:ring-4">
     <MenuIcon />
   </div>
       </SheetTrigger>
