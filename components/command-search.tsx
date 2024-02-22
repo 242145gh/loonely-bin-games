@@ -63,7 +63,7 @@ function Hit({ hit }: HitProps) {
          </Link>
             {hit.messages
                .slice(1, 13) // Limiting to first 3 messages
-               .sort((a, b) => new Date(a.date) - new Date(b.date))
+               .sort((a, b) => hit.date - hit.date)
                 .map((message, index) => (
                     <div key={index} className="col-span-2 flex p-1"> {/* Each message in a row */}
                         <div className="mr-2">
