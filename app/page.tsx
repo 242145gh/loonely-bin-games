@@ -60,13 +60,13 @@ export default function Home() {
 
  function SignedInContent() {
 
-  const { viewer, numbers } =
+  const { viewer } =
     useQuery(api.myFunctions.listNumbers, {
       count: 10,
     }) ?? {};
   const addNumber = useMutation(api.myFunctions.addNumber);
 
-  if (viewer === undefined || numbers === undefined) {
+  if (viewer === undefined) {
     return (
       <>
         <Skeleton className="h-5 w-full" />

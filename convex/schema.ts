@@ -39,6 +39,7 @@ export default defineSchema(
     blog: defineTable({
       title: v.string(),
       body: v.string(),
+      summary: v.string(),
     }).searchIndex("search_blog", {
       searchField: "body",
     }),  

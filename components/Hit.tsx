@@ -47,12 +47,8 @@ export default function Hit({ hit }: HitProps) {
             />
             {hit.title}
           </a>
-          <Highlight
-            hit={hit}
-            attribute="content"
-            className="text-neutral-n5 line-clamp-2"
-          />
-           <Markdown text={hit.content} />
+            {hit.summary}
+           <Markdown text={hit.content} /> 
         </div>
       )}
       {isDiscordHit(hit) && (

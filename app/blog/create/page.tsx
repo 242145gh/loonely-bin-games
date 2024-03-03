@@ -1,6 +1,5 @@
 "use client";
-import dotenv from 'dotenv'
-dotenv.config()
+
 import { api } from "../../../convex/_generated/api";
 import { useMutation, useQuery } from "convex/react";
 import HeaderMe from "@/components/layout/header";
@@ -22,21 +21,20 @@ export default function CreateBlogPage() {
   const last  = useQuery(api.myFunctions.lastRecord, {});
 
   const handleButtonComment = () => {
-    createArticle({title: title, body: body, });
+    createArticle({title: title, body: body, summary: summary });
       if (last) {
+       
           const articlesArray = last.article; // Assuming the array is stored under the 'article' key
           articlesArray.forEach(article => {
           const id = article._id;
           console.log("last article id is:", id); // You can use the ID as needed
-          const ALGOLIA_APP_ID = "5JJ918ZR72";
-          const STACK_INDEX = "stack";
-        // console.log("ALGOLIA_API_KEY",process.env.ALGOLIA_API_KEY)
-          const client = algoliasearch('5JJ918ZR72', 'bfa1ff7e84adfc18c3c139c2cf42bfb2')
-          const index = client.initIndex('stack')
+          const client = algoliasearch("5JJ918ZR72","39f936c8f879bdd1c47892010a397f51")
+          const index = client.initIndex("stack")
+          
           const record = { objectID: article._id, 
             title: article.title,
             type: "article",
-            summary: "insert algolia",
+            summary: article.summary,
             content: article.body
           };
           index.saveObject(record).wait();
@@ -56,6 +54,10 @@ export default function CreateBlogPage() {
         index
           .search('stack')
           .then(( {hits } ) => console.log(hits[0]));
+        
+          setTitle('')
+          setBody('')
+          setSummary('')
 
       });
     }

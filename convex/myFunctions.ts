@@ -183,6 +183,7 @@ export const createArticle = mutation({
   args: {
     title: v.string(),
     body: v.string(),
+    summary: v.string(),
   },
   handler: async (ctx, args) => {
     const identity = await ctx.auth.getUserIdentity();
@@ -195,6 +196,7 @@ export const createArticle = mutation({
      const article = await ctx.db.insert("blog", {
         title: args.title,
         body: args.body,
+        summary: args.summary,
       });
 
       console.log("Article db operation ok:",article)

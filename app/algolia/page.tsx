@@ -19,7 +19,7 @@ const searchClient = algoliasearch
 );
 
 
-console.log(searchClient)
+
 export default function Home() {
   return (
     <>
