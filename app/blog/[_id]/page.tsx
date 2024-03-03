@@ -7,7 +7,7 @@ import { Card } from '@/components/ui/card';
 
 export default function BlogPage({ params }: { params: { _id: string } }) {
 
-  console.debug(params._id)
+  //console.debug(params._id)
 
  const getBlog = useQuery(api.myFunctions.getBlog, {_id: params._id})
   
@@ -15,11 +15,12 @@ export default function BlogPage({ params }: { params: { _id: string } }) {
   return (
   <>
 <HeaderMe/>
-    <Card  className='mt-5 ml-10 mr-10'>
+<div className='bg-secondary'>
+    <Card  className='mt-5 ml-10 mr-10 bg-secondary'>
     {getBlog?.map((c) => (
       <div key={c._id}>
       <div className='flex ml-5 mr-5 justify-center  border-2 
-      border-slate-500 bg-secondary p-2 mt-5 mb-5 '>
+      border-slate-500 bg-secondary p-2 mt-5 mb-5 bg-primary '>
         <h1>{c.title}</h1>
         </div>
         <div className='flex ml-5 mr-5  mb-5 justify-center'>  {c.body}</div>
@@ -27,6 +28,7 @@ export default function BlogPage({ params }: { params: { _id: string } }) {
     </div>
     ))}
     </Card>
+    </div>
   </>
   )
 }

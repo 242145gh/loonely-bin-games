@@ -19,6 +19,14 @@ import {
 } from "../../components/ui/table"
 import { ImageIcon, Space } from 'lucide-react'
 import Image from 'next/image'
+import {
+  Dialog,
+  DialogContent,
+  DialogDescription,
+  DialogHeader,
+  DialogTitle,
+  DialogTrigger,
+} from "../../components/ui/dialog"
 
 type Apple = {
   x: number
@@ -39,11 +47,11 @@ export default function SnakeGame() {
   const canvasWidth = 500
   const canvasHeight = 380
   const canvasGridSize = 20
-
+  const [isExploding, setIsExploding] = useState(false);
   // Game Settings
   const minGameSpeed = 10
   const maxGameSpeed = 15
-
+  const [open, setOpen] = useState(false);
   // Game State
   const [gameDelay, setGameDelay] = useState<number>(1000 / minGameSpeed)
   const [countDown, setCountDown] = useState<number>(4)
@@ -107,8 +115,12 @@ export default function SnakeGame() {
       addHighScore({highscore: score})
       localStorage.setItem('highscore', score.toString())
       setNewHighscore(true)
+      setIsExploding(true)
     }
     setIsLost(true)
+    setIsExploding(true)
+    setOpen(true);
+
     setRunning(false)
     setVelocity({ dx: 0, dy: 0 })
     setCountDown(4)
@@ -358,9 +370,10 @@ export default function SnakeGame() {
 
 
   return (
-    <>
+    <><div className=' z-10 w-full border-b bg-background/80 backdrop-blur-md bg-secondary '>
+    
       <div className='flex items-center justify-center text-4xl text-green-500'>Snake</div>
-      <main className='flex relative items-center justify-center'>
+      <main className='flex relative items-center justify-center '>
       <Card className=' p-2 '>
       <div className="bg-gradient-to-r from-pink-500 via-red-500 to-yellow-500 p-1 rounded-lg">
        
@@ -378,7 +391,7 @@ export default function SnakeGame() {
             </p>
             <p>
  
-            {/*Highscore: {highscore > score ? highscore : score*/}
+            Highscore: {highscore > score ? highscore : score}
               <div className="flex items-center justify-center">
               <div className='text-lg bg-gradient-to-r p-1 b-1 from-pink-500 via-red-500 to-yellow-500 rounded w-1/3'><div className='bg-slate-500 rounded flex items-center justify-center'>Leader Board </div></div>
 
@@ -423,17 +436,27 @@ export default function SnakeGame() {
           </div>
 
           {!isLost && countDown > 0 ? (
-            <div className='absolute inset-0 flex items-center justify-center'>
-              <div className='rounded-lg p-10 backdrop-blur-md mt-24'>
+            <Dialog  defaultOpen>
+ 
+            <DialogContent>
+              <DialogHeader>
+                <DialogTitle>Start Game</DialogTitle>
+                
+            <div className=' inset-0 flex items-center justify-center'>
+             
             <Button onClick={startGame} variant="snake">
               {countDown === 4 ? 'Start Game' : countDown}
             </Button>
-              </div>
             </div>
+    </DialogHeader>
+  </DialogContent>
+
+</Dialog>
           ) : (
             <div className="p-2">
               <p>How to Play?</p>
               <p>
+                
                 <FontAwesomeIcon icon={['fas', 'arrow-up']} />
                 <FontAwesomeIcon icon={['fas', 'arrow-right']} />
                 <FontAwesomeIcon icon={['fas', 'arrow-down']} />
@@ -443,30 +466,47 @@ export default function SnakeGame() {
           )}
           </Card>
           {isLost && (
-            <div className="flex absolute inset-1 items-center justify-center">
-            <div className="p-10 flex items-center justify-center backdrop-blur-md
-        rounded-lg flex-col items-center justify-center border-2 border-gray-200 border-opacity-5"> 
+           
 
-          <div className="text-4xl">Game Over</div>
-            <div className="text-xl">
+            <div className="flex absolute inset-1 items-center justify-center">
+           
+           {/* <div className="p-10 flex items-center justify-center backdrop-blur-sm
+        rounded-lg flex-col items-center justify-center border-2  border-opacity-5"> 
+*/}
+        <Dialog defaultOpen>
+       
+    <DialogContent>
+      <DialogHeader>
+        <DialogTitle>Game Over</DialogTitle>
+        <DialogDescription> 
+          
+       
+            <div className="text-lg">
 
               {newHighscore ?  ( <> 🎉 New Highscore 🎉
-                 <ConfettiExplosion force={0.5} zIndex={1} duration={3500} particleSize={5} height="120vh" colors={[
-                  '#FFC700','#FF0000','#2E3191','#41BBC7','#fc59a3','#87c830','#ffd400','#fe7e0f','#8e3ccb']} particleCount={450} />
+                {isExploding && 
+                 <ConfettiExplosion force={0.5} zIndex={51} duration={3500} particleSize={5} height="120vh" colors={[
+                  '#FFC700','#FF0000','#2E3191','#41BBC7','#fc59a3','#87c830','#ffd400','#fe7e0f','#8e3ccb']} particleCount={450} />}
               </>): `You scored: ${score}`}
             </div>
-
             {!running && isLost && (
              <Button onClick={startGame} className="mt-2" variant="snake">
              {countDown === 4 ? 'Restart Game' : countDown}
            </Button>
             )}
+      </DialogDescription>
+    </DialogHeader>
+  </DialogContent>
+  
+</Dialog>
+         
+           
             </div>
-            </div>
+           
         )}
             
          </main>
- 
+         </div>
      
       <footer>
         Copyright &copy; <a href="https://mueller.dev">Marc Müller</a> 2022

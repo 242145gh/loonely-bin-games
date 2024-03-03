@@ -1,11 +1,11 @@
+
 import { v } from "convex/values";
 import { query, mutation, action } from "./_generated/server";
-import { api } from "./_generated/api";
+import { api, internal } from "./_generated/api";
+import algoliasearch from "algoliasearch";
 
-// Write your Convex functions in any file inside this directory (`convex`).
-// See https://docs.convex.dev/functions for more.
 
-// You can read data from the database via a query:
+
 export const listNumbers = query({
   // Validators for arguments.
   args: {
@@ -23,7 +23,7 @@ export const listNumbers = query({
       .take(args.count);
     return {
       viewer: (await ctx.auth.getUserIdentity())?.name ?? null,
-      numbers: numbers.toReversed().map((number) => number.value),
+     // numbers: numbers.toReversed().map((number) => number.value),
     };
   },
 });
@@ -56,11 +56,7 @@ export const myAction = action({
 
   // Action implementation.
   handler: async (ctx, args) => {
-    //// Use the browser-like `fetch` API to send HTTP requests.
-    //// See https://docs.convex.dev/functions/actions#calling-third-party-apis-and-using-npm-packages.
-    // const response = await ctx.fetch("https://api.thirdpartyservice.com");
-    // const data = await response.json();
-
+   
     //// Query data by running Convex queries.
     const data = await ctx.runQuery(api.myFunctions.listNumbers, {
       count: 10,
@@ -180,4 +176,48 @@ export const getBlog = query({
     .collect();
      
   }
+});
+
+export const createArticle = mutation({
+  
+  args: {
+    title: v.string(),
+    body: v.string(),
+  },
+  handler: async (ctx, args) => {
+    const identity = await ctx.auth.getUserIdentity();
+
+    if (!identity) {
+      throw new Error("Please login to add an article.");
+    }
+
+   
+     const article = await ctx.db.insert("blog", {
+        title: args.title,
+        body: args.body,
+      });
+
+      console.log("Article db operation ok:",article)
+
+     
+   
+  },
+});
+
+
+export const lastRecord = query({
+
+  handler: async (ctx, args) => {
+    //// Read the database as many times as you need here.
+    //// See https://docs.convex.dev/database/reading-data.
+    const article = await ctx.db
+      .query("blog")
+      .order("desc")
+      // Ordered by _creationTime, return most recent
+      .take(1);
+    return {
+      article: article
+
+    };
+  },
 });

@@ -23,7 +23,7 @@ export default function HomeHangman() {
 					<HangmanDrawing />
 				</div>
 			</section>
-			<section>
+			<section >
 				<div className='max-w-maxi mx-auto py-6'>
 					<p className='flex gap-3 items-center justify-center'>
 						<GuessedLetters serverWord={generateRandomWord()} />

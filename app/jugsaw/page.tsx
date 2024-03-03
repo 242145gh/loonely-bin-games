@@ -13,6 +13,8 @@ import { formatDistance } from "date-fns";
 import HeaderMe from '@/components/layout/header';
 import { Avatar, AvatarFallback, AvatarImage } from "@/components/ui/avatar"
 import {Authenticated, Unauthenticated, useMutation, useQuery } from "convex/react";
+import { useCallback, useEffect, useRef } from 'react';
+import ReactCanvasConfetti from 'react-canvas-confetti';
 
 interface JigsawPuzzle {
     imageSrc: string; // Assuming imageSrc is a string, adjust accordingly
@@ -22,6 +24,51 @@ interface JigsawPuzzle {
   }
 
 export default function JigsawPuzzleComponent() {
+    const refAnimationInstance = useRef(null);
+
+  const getInstance = useCallback((instance: null) => {
+    refAnimationInstance.current = instance;
+  }, []);
+
+  const makeShot = useCallback((particleRatio: number, opts: any) => {
+    refAnimationInstance.current &&
+      refAnimationInstance.current({
+        ...opts,
+        origin: { y: 0.7 },
+        particleCount: Math.floor(200 * particleRatio)
+      });
+  }, []);
+
+  useEffect(() => fire(), []);
+
+  const fire = useCallback(() => {
+    makeShot(0.25, {
+      spread: 26,
+      startVelocity: 55
+    });
+
+    makeShot(0.2, {
+      spread: 60
+    });
+
+    makeShot(0.35, {
+      spread: 100,
+      decay: 0.91,
+      scalar: 0.8
+    });
+
+    makeShot(0.1, {
+      spread: 120,
+      startVelocity: 25,
+      decay: 0.92,
+      scalar: 1.2
+    });
+
+    makeShot(0.1, {
+      spread: 120,
+      startVelocity: 45
+    });
+  }, [makeShot]);
 
     const img = ['./vw.jpg', './derek.jpg', './squirrel.jpg', './alex.jpg', './shuper.jpg', './yue.jpg', './thimo.jpg'];    
     const randomIndex = Math.floor(Math.random() * img.length);
@@ -65,7 +112,7 @@ export default function JigsawPuzzleComponent() {
     <HeaderMe />
     <Authenticated>
                 
-            <Card className='p-5 ml-5 mr-5 mt-1 mb-5'>
+            <Card className='p-5 ml-5 mr-5 mt-5 mb-5 mr-5  border-b bg-background/80 backdrop-blur-md bg-secondary'>
             <Button className='mb-4 mt-4 ml-4 mr-4' variant="ghost" onClick={() => {
                 setJigsaw({
                     imageSrc: randomImage,
@@ -78,13 +125,23 @@ export default function JigsawPuzzleComponent() {
             Play again
             </Button>
             <div className='flex py-2 items-center justify-center text-lg font-bold text-green-600'>{text}
-                {isExploding &&  <ConfettiExplosion force={0.5} zIndex={1} duration={2500} particleSize={5} height="120vh" colors={[
-                    '#FFC700','#FF0000','#2E3191','#41BBC7','#fc59a3','#87c830','#ffd400','#fe7e0f','#8e3ccb']} particleCount={450} />}              
+                {isExploding &&   <ReactCanvasConfetti
+      refConfetti={getInstance}
+      style={{
+        position: 'fixed',
+        pointerEvents: 'none',
+        width: '100%',
+        height: '100%',
+        top: 0,
+        left: 0
+      }}
+    />}              
              
 
                </div>
-                <JigsawPuzzle {...jigsaw} />
-                
+               <div className="w-full">
+                <JigsawPuzzle {...jigsaw}  />
+                </div>
             </Card>
            
    
@@ -104,7 +161,7 @@ export default function JigsawPuzzleComponent() {
       Comment
     </Button>
         </Card>
-        
+       
         {allComments?.map((message) => (
             <div className="grid grid-cols-1 gap-4" key={message._id}>
                 <Card className='mb-4 mt-4 ml-4 mr-4'>

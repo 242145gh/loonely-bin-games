@@ -42,6 +42,15 @@ export default function HeaderMe() {
           <GamepadIcon className="h-[1.2rem] w-[1.2rem]" />  
           <Link href="/next-snake" >Snake </Link>
         </div>
+        <div className=" flex ml-3 mb-2 text-xs gap-1">
+          <GamepadIcon className="h-[1.2rem] w-[1.2rem]" />  
+          <Link href="/algolia" >algolia </Link>
+        </div>
+        <div className=" flex ml-3 mb-2 text-xs gap-1">
+          <GamepadIcon className="h-[1.2rem] w-[1.2rem]" />  
+          <Link href="/blog/create" >Create New Article </Link>
+        </div>
+        
           </>
   );
 
@@ -84,7 +93,7 @@ export default function HeaderMe() {
           <Link className="flex absolute ml-10 size-lg bold" href="/"><div className="hidden md:block ">looney bin</div></Link>
               <div className="flex mr-1 p-2 gap-2">
        <CommandMenu />
-              <NavigationMenu className="h-6">
+              <NavigationMenu>
       <NavigationMenuList>
         <NavigationMenuItem>
           <NavigationMenuTrigger></NavigationMenuTrigger>
@@ -98,7 +107,7 @@ export default function HeaderMe() {
       </NavigationMenu>
               <DropdownMenu >
           <DropdownMenuTrigger asChild>
-            <Button variant="default" size="icon" className="h-6 w-5">
+            <Button variant="default" size="icon" >
               <SunIcon className="h-[1.2rem] w-[1.2rem] rotate-0 scale-100 transition-all dark:-rotate-90 dark:scale-0" />
               <MoonIcon className="absolute h-[1.2rem] w-[1.2rem] rotate-90 scale-0 transition-all dark:rotate-0 dark:scale-100" />
               <span className="sr-only">Toggle theme</span>

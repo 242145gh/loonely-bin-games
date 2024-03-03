@@ -4,12 +4,15 @@ import { ThemeProvider } from "@/components/theme-provider";
 import ReduxProvider from '@/client/providers/redux-provider';
 import '@/styles/main.scss';
 import type { Metadata } from 'next';
-import { Inter } from 'next/font/google';
+import { Roboto_Flex } from 'next/font/google'
 import { Footer } from "@/components/layout/footer";
+import NextTopLoader from 'nextjs-toploader';
+import { Toaster } from "@/components/ui/sonner";
 
-
-const inter = Inter({ subsets: ["latin"] });
-
+const roboto_flex = Roboto_Flex({
+  weight: '400',
+  subsets: ['latin'],
+})
 export const metadata: Metadata = {
   title: "Looney Bin",
   description: "Looney times here at the bin of games ",
@@ -23,7 +26,8 @@ export default function RootLayout({
   return (
     <html lang="en" suppressHydrationWarning>
     <head />
-      <body className={inter.className}>
+      <body className={roboto_flex.className}>
+      <NextTopLoader />
       <ThemeProvider
             attribute="class"
             defaultTheme="system"
@@ -33,6 +37,7 @@ export default function RootLayout({
         <ConvexClientProvider>
           <ReduxProvider>     
 					  {children}
+            <Toaster />
 				  </ReduxProvider>
         </ConvexClientProvider>
         </ThemeProvider>

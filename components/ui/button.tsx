@@ -17,7 +17,7 @@ const buttonVariants = cva(
         secondary:
           "bg-secondary text-secondary-foreground hover:bg-secondary/80",
         ghost: "hover:bg-accent hover:text-accent-foreground",
-        snake: "bg-gradient-to-l from-sky-500  to-violet-500 hover:from-violet-500 hover:to-sky-500 hover:text-white hover:shadow-lg-500 rounded-md py-2 px-4 transition-colors duration-500 ease-in-out",
+        snake: "bg-gradient-to-l from-pink-500  to-violet-500 hover:from-violet-500 hover:to-pink-500  hover:shadow-lg-500 rounded-md py-2 px-4 ",
        
         link: "text-primary underline-offset-4 hover:underline",
       },

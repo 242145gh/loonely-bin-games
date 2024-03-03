@@ -1,9 +1,13 @@
 /** @type {import('next').NextConfig} */
-module.exports = {
-  mode: 'production',
-    experimental: {
-      serverActions: {
-        allowedOrigins: ['discord.com'],
+const nextConfig = {
+  images: {
+    remotePatterns: [
+      {
+        protocol: 'https',
+        hostname: 'cdn.discordapp.com',
       },
-    },
-  }
+    ],
+  },
+};
+
+module.exports = nextConfig;
