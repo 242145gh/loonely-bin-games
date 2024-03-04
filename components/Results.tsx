@@ -17,7 +17,7 @@ const indexes = [
   {
     name: 'discord',
     title: 'Discord',
-    link: 'https://discord.com/invite/nk6C2qTeCq',
+    link: 'https://discord.gg/vvjzqUaj',
   },
 ];
 

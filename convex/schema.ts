@@ -37,14 +37,24 @@ export default defineSchema(
       searchField: "gamename",
     }),  
     blog: defineTable({
+      name: v.string(),
+      userId: v.string(),
+      pictureId: v.string(),
       title: v.string(),
       body: v.string(),
       summary: v.string(),
     }).searchIndex("search_blog", {
       searchField: "body",
-    }),  
-  
-     
+    }),
+    author: defineTable({
+      name: v.string(),
+      userId: v.string(),
+      pictureId: v.string(),
+      job: v.string(),
+      bio: v.string(),
+      
+    }),
+    
   
 
 }

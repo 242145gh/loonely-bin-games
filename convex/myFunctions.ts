@@ -181,6 +181,7 @@ export const getBlog = query({
 export const createArticle = mutation({
   
   args: {
+   
     title: v.string(),
     body: v.string(),
     summary: v.string(),
@@ -194,6 +195,9 @@ export const createArticle = mutation({
 
    
      const article = await ctx.db.insert("blog", {
+        name: identity.name! || "Anon",
+        userId: identity.subject || "Anon",
+        pictureId: identity.pictureUrl! || "Anon",
         title: args.title,
         body: args.body,
         summary: args.summary,
@@ -222,4 +226,23 @@ export const lastRecord = query({
 
     };
   },
+});
+
+
+
+
+export const getAuthor = query({
+  args: {
+    name: v.string(),
+    
+  },
+
+  handler: async (ctx, args) => {
+    
+    return await ctx.db
+    .query("author")
+    .filter((q) => q.eq(q.field("name"), args.name))
+    .collect();
+     
+  }
 });

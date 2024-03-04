@@ -1,7 +1,7 @@
 "use client";
 
 import { api } from "../../../convex/_generated/api";
-import { useMutation, useQuery } from "convex/react";
+import { Authenticated, useMutation, useQuery } from "convex/react";
 import HeaderMe from "@/components/layout/header";
 import { Card } from "@/components/ui/card";
 import { Input } from "@/components/ui/input";
@@ -17,7 +17,7 @@ export default function CreateBlogPage() {
   const [title, setTitle] = useState("");
   const [summary,setSummary] = useState("");
 
-  const createArticle   = useMutation(api.myFunctions.createArticle);
+  const createArticle  = useMutation(api.myFunctions.createArticle);
   const last  = useQuery(api.myFunctions.lastRecord, {});
 
   const handleButtonComment = () => {
@@ -68,6 +68,7 @@ export default function CreateBlogPage() {
   return (
     <>
       <HeaderMe />
+      <Authenticated>
       <div className="bg-secondary ml-10 mr-10 mt-10 mb-10">
         <Card className="mt-5 ml-10 mr-10 bg-secondary">
           <div className="grid grid-cols-1 w-full p-5">
@@ -104,6 +105,7 @@ export default function CreateBlogPage() {
           </div>
         </Card>
       </div>
+      </Authenticated>
     </>
   );
 }

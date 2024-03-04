@@ -1,0 +1,76 @@
+
+
+
+mikery mouse
+-->
+https://discord.com/channels/1206282035904385124/1206282037842018386/threads/1214203560204435557
+$(guildId)+$(channels.id)+$(messages.channelId)
+"1206282037842018386" is in channels id field. find by _Id (j57amgd5eg7b9vp4b0s7xema6d6kwrct)
+
+select id from channels where messages.channelId = channels._id
+
+thread_id (aka last one): thread.id
+thread_parentId( aka middle one): thread.parentId
+
+
+const  getChannelsId = query()
+
+  args:{
+    channels_id: v.number()
+    messagesChannelId: v.number()
+  }
+handler: async(args,ctx){
+  await channels = ctx.db("channels")
+  .filter((q) => )
+  .filter((q) => q.eq(q.field("_id")))
+  .take(1)
+
+  await messages = ctx.db("messages")
+  .filter((q) => )
+  .filter((q) => q.eq(q.field("channelId")))
+  .take(1)
+}
+return{
+  id: (await db.query("channels").filter((q) => q.eq(channels) =  q.eq(messages) =)
+}
+
+
+
+{
+  activity: null,
+  applicationId: null,
+  attachments: [],
+  authorId: "821650223859892234",
+  channelId: "1214203560204435557",
+  cleanContent: "mikey mourze",
+  components: [],
+  content: "mikey mourze",
+  createdTimestamp: 1709559181844,
+  editedTimestamp: null,
+  embeds: [],
+  flags: 0,
+  groupActivityApplicationId: null,
+  guildId: "1206282035904385124",
+  id: "1214203955643424868",
+  interaction: null,
+  mentions: {
+    channels: [],
+    crosspostedChannels: [],
+    everyone: false,
+    members: [],
+    repliedUser: null,
+    roles: [],
+    users: [],
+  },
+  nonce: "1214203954376736768",
+  pinned: false,
+  position: 2,
+  reference: null,
+  resolved: null,
+  roleSubscriptionData: null,
+  stickers: [],
+  system: false,
+  tts: false,
+  type: 0,
+  webhookId: null,
+}

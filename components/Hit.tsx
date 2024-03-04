@@ -35,7 +35,7 @@ export default function Hit({ hit }: HitProps) {
       {isStackHit(hit) && (
         <div className="flex flex-col">
           <a
-            href={hit.objectID}
+            href={`/blog/${hit.objectID}`}
             className="mb-2 flex items-start gap-2 text-lg font-semibold leading-tight text-neutral-white underline-offset-2 hover:underline"
             target="_blank"
           >
@@ -54,9 +54,10 @@ export default function Hit({ hit }: HitProps) {
       {isDiscordHit(hit) && (
         <div className="flex flex-col">
           <a
-            href={hit.url}
+            href={`https://discord.com/channels/1206282035904385124/${hit.objectID}`}
+            //{hit.url}
             className="mb-2 flex items-start gap-2 text-lg font-semibold leading-tight text-discord underline-offset-2 hover:underline"
-            target="_blank"
+            target="_self"
           >
             <Image
               src="/icon-discord.svg"
