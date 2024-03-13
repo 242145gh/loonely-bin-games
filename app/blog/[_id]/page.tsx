@@ -33,6 +33,7 @@ export default function BlogPage({ params }: { params: { _id: string } }) {
               <span className='text-xs'><Link href={`/blog/author/${c.name}`} className='hover:underline'>{c.name} </Link></span> 
                   <div className='text-xs'>{formatDate(c._creationTime,'PPpp')}</div>
               </div>
+             
           </div>
       
       <div className='flex ml-5 mr-5 justify-center  border-2 

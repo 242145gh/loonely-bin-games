@@ -20,20 +20,20 @@ export default function BlogPage({ params }: { params: { name: string } }) {
         {/* Mapping over the 'getAuthor' array to render each author */}
         {getAuthor?.map((c) => (
           <div key={c._id}>
-            <div className="col-span-2 flex p-1 text-sm"> {/* Each author in a row */}
+            <div className="col-span-1 flex p-1"> {/* Each author in a row */}
               <div className="mr-2">
                 <Avatar>
                   <AvatarImage width={50} height={50} src={c.pictureId} className='rounded-full ring-3' />
                 </Avatar>
-              </div>
-              <div>
+             
                 {/* Display author's name */}
-                {c.name}
+               <div className='text-3xl'> {c.name}</div>
                 {/* Display author's job */}
-                {c.job}
+                <div className='mb-3'>{c.job}</div>
                 {/* Display author's bio */}
                 {c.bio}
-              </div>
+             
+             </div>
             </div>
           </div>
         ))}
