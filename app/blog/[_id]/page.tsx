@@ -14,7 +14,7 @@ export default function BlogPage({ params }: { params: { _id: string } }) {
 
   const [formattedData, setFormattedData] = useState<string | null>(null);
   const [author, setUserId] = useState<string>('');
-  const [extractedMarkdown, setExtractedString] = useState<string | null>(null);
+  const [extractedMarkdown, setExtractedString] = useState('');
   const [markdownWithoutBackticks, setMarkdownWithoutBackticks] = useState<string | null>(null);
 
 
@@ -67,12 +67,13 @@ export default function BlogPage({ params }: { params: { _id: string } }) {
                   <h1>{c.title}</h1>
                 </div>
                 <div className='flex ml-5 mr-5 mb-5 justify-center relative'>
-                  {formattedData && (
+                {formattedData && (
                     <>
-                      
+                    
+                      {markdownWithoutBackticks !== null && (
                         <div dangerouslySetInnerHTML={{ __html: markdownWithoutBackticks }} />
-                      
-                     
+                      )}
+                      {/* Assuming extractedMarkdown is another piece of content to render */}
                       <Markdown text={extractedMarkdown} />
                     </>
                   )}
