@@ -9,7 +9,7 @@ type HitProps = {
 
 export default function Hit({ hit }: HitProps) {
   return (
-    <div className="rounded-lg border border-neutral-n12 bg-neutral-n11 p-3 shadow">
+    <div className="relative rounded-lg border border-neutral-n12 bg-neutral-n11 p-3 shadow">
       {isDocsHit(hit) && (
         <div className="flex flex-col">
           <a
@@ -33,7 +33,7 @@ export default function Hit({ hit }: HitProps) {
         </div>
       )}
       {isStackHit(hit) && (
-        <div className="flex flex-col">
+        <div className="relative flex flex-col">
           <a
             href={`/blog/${hit.objectID}`}
             className="mb-2 flex items-start gap-2 text-lg font-semibold leading-tight text-neutral-white underline-offset-2 hover:underline"
@@ -52,7 +52,7 @@ export default function Hit({ hit }: HitProps) {
         </div>
       )}
       {isDiscordHit(hit) && (
-        <div className="flex flex-col">
+        <div className="relative flex flex-col">
           <a
             href={`https://discord.com/channels/1206282035904385124/${hit.objectID}`}
             //{hit.url}

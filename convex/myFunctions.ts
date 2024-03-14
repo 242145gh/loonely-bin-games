@@ -233,15 +233,16 @@ export const lastRecord = query({
 
 export const getAuthor = query({
   args: {
-    name: v.string(),
+    userId: v.string(),
     
   },
 
   handler: async (ctx, args) => {
     
+    
     return await ctx.db
     .query("author")
-    .filter((q) => q.eq(q.field("name"), args.name))
+    .filter((q) => q.eq(q.field("userId"), args.userId))
     .collect();
      
   }

@@ -2,12 +2,12 @@ import "./globals.css";
 import ConvexClientProvider from "./ConvexClientProvider";
 import { ThemeProvider } from "@/components/theme-provider";
 import ReduxProvider from '@/client/providers/redux-provider';
-import '@/styles/main.scss';
+import '@/styles/tailwind.css';
 import type { Metadata } from 'next';
 import { Roboto_Flex } from 'next/font/google'
 import { Footer } from "@/components/layout/footer";
 import NextTopLoader from 'nextjs-toploader';
-import { Toaster } from "@/components/ui/sonner";
+import { Toaster } from "react-hot-toast";
 
 const roboto_flex = Roboto_Flex({
   weight: '400',
@@ -26,7 +26,7 @@ export default function RootLayout({
   return (
     <html lang="en" suppressHydrationWarning>
     <head />
-      <body className={roboto_flex.className}>
+      <body className="bg-neutral-n12">
       <NextTopLoader />
       <ThemeProvider
             attribute="class"

@@ -23,6 +23,8 @@ import {
  
   } from "@/components/ui/card"
 import { Label } from "./ui/label";
+import escape from "lodash"
+import { encode } from "punycode";
 
 
 type Message = {
@@ -59,7 +61,7 @@ type HitProps = {
   const routero = useRouter()
   
   console.log(hit.messages);
-  const url = `https://discord.com/channels/1206282035904385124/1208419816881266698/threads/${hit.objectID}`
+  const url = `https://discord.com/channels/1206282035904385124/${hit.objectID}`
   return (
    
     <CommandItem onSelect={() => {
@@ -102,6 +104,7 @@ export default  function CommandMenu({ serverState, url }: HomePageProps) {
 
   const [open, setOpen] = useState(false)
   const [search, setCommandSearch] = useState('');
+
   
   const runCommand = useCallback((command: () => unknown) => {command();  }, []);  
   const runCommandSearch = useCallback((command: () => unknown) => {command();  }, []);  
@@ -110,6 +113,7 @@ export default  function CommandMenu({ serverState, url }: HomePageProps) {
 
   const commandSearch = useQuery(api.myFunctions.commandSearch, { gamename: search });
   const blogSearch = useQuery(api.myFunctions.blogSearch, { body: search });
+
 
       useEffect(() => {
         const down = (e: KeyboardEvent) => {
@@ -128,6 +132,9 @@ export default  function CommandMenu({ serverState, url }: HomePageProps) {
         runCommandSearch(() => setCommandSearch(e.target.value));
 
       };
+
+   
+
 
       return (
     <>
@@ -152,11 +159,14 @@ export default  function CommandMenu({ serverState, url }: HomePageProps) {
           <CommandGroup heading="Blog Pages">
             {blogSearch?.map((c) => (
               <Link key={c._id} href={`/blog/${c._id}`}>
-              <CommandItem
+              <CommandItem 
                 onSelect={() => {
                   runCommand(() => router.push(`/blog/` + c._id));
+               
+               
                 }}>
-                {c.body}
+             
+              {c.body}
               </CommandItem>
                   
               
@@ -166,10 +176,13 @@ export default  function CommandMenu({ serverState, url }: HomePageProps) {
     
           <CommandGroup heading="Games">
             {commandSearch?.map((c) => (
+              
               <Link key={c._id} href={c.link} >
-                <CommandItem onSelect={() => 
-                    runCommand(() => router.push(c.link))
-                  } 
+                <CommandItem
+                  onSelect={() => {
+                    runCommand(() => router.push(c.link));
+                 
+                  }}
                 >
                   {c.gamename}
                 </CommandItem>

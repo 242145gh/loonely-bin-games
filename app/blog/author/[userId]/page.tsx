@@ -7,11 +7,11 @@ import { Card } from '@/components/ui/card';
 import { Avatar, AvatarImage } from '@radix-ui/react-avatar';
 
 
-export default function BlogPage({ params }: { params: { name: string } }) {
+export default function BlogPage({ params }: { params: { userId: string } }) {
 
   //console.debug(params._id)
 
- const getAuthor = useQuery(api.myFunctions.getAuthor, {name: params.name})
+ const getAuthor = useQuery(api.myFunctions.getAuthor, {userId: params.userId})
  return (
   <>
     <HeaderMe /> {/* Assuming HeaderMe is another component */}

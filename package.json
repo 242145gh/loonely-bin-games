@@ -66,6 +66,8 @@
     "he": "^1.2.0",
     "instantsearch.css": "8.1.0",
     "jabber": "^1.5.3",
+    "lodash": "^4.17.21",
+    "lodash-webpack-plugin": "^0.11.6",
     "lucide-react": "^0.341.0",
     "next": "^14.1.2-canary.2",
     "next-themes": "^0.2.1",
@@ -76,9 +78,11 @@
     "react": "18.2.0",
     "react-canvas-confetti": "^2.0.5",
     "react-confetti-explosion": "^2.1.2",
+    "react-copy-to-clipboard": "^5.1.0",
     "react-day-picker": "^8.9.1",
     "react-dom": "18.2.0",
     "react-hook-form": "^7.47.0",
+    "react-hot-toast": "^2.4.1",
     "react-instantsearch": "7.6.0",
     "react-instantsearch-hooks-web": "^6.44.0",
     "react-instantsearch-router-nextjs": "7.6.0",
@@ -101,6 +105,8 @@
     "zod": "^3.22.4"
   },
   "devDependencies": {
+    "@types/lodash": "^4.17.0",
+    "@types/react-copy-to-clipboard": "^5.0.7",
     "prettier": "^3.0.0",
     "prettier-plugin-tailwindcss": "^0.5.0"
   }
