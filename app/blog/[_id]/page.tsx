@@ -37,7 +37,8 @@ export default function BlogPage({ params }: { params: { _id: string } }) {
 
     // Extracting context text before and after the markdown
     const contextTextBefore = markDown.slice(0, matches ? matches.index : markDown.length);
-    const contextTextAfter = markDown.slice(matches ? matches.index + matches[0].length : 0);
+    const contextTextAfter = matches ? markDown.slice((matches.index || 0) + matches[0].length) : '';
+
 
     // Combine context before and after
     const contextCombined = contextTextBefore + contextTextAfter;
@@ -72,8 +73,12 @@ export default function BlogPage({ params }: { params: { _id: string } }) {
                 </div>
                 <div className='flex ml-5 mr-5 justify-center border-2 border-slate-500 bg-secondary p-2 mt-5 mb-5 bg-primary '>
                   <h1>{c.title}</h1>
+                  <div className='mb-5'> - {c.summary}</div>
                 </div>
-                <div className='flex ml-5 mr-5 mb-5 justify-center relative'>
+                
+                
+               
+                <div className='flex ml-5 mr-5 mb-5 justify-center relative mb-5'>
                   {extractedMarkdown ? (
                     <>
                       {context !== null && (
