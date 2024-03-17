@@ -11,11 +11,9 @@ import { useEffect, useState } from 'react';
 
 
 export default function BlogPage({ params }: { params: { _id: string } }) {
-
-  const [formattedData, setFormattedData] = useState<string | null>(null);
-  const [author, setUserId] = useState<string>('');
-  const [extractedMarkdown, setExtractedString] = useState('');
-  const [markdownWithoutBackticks, setMarkdownWithoutBackticks] = useState<string | null>(null);
+  const [author, setUserId] = useState('');
+  const [extractedMarkdown, setExtractedMarkdown] = useState('');
+  const [context, setContext] = useState<string | null>(null);
 
 
   const getBlog = useQuery(api.myFunctions.getBlog, { _id: params._id });
@@ -23,26 +21,35 @@ export default function BlogPage({ params }: { params: { _id: string } }) {
 
   useEffect(() => {
     if (getBlog && getBlog.length > 0) {
-      displayData(getBlog[0].body);
       setUserId(getBlog[0].userId);
       extractMarkDown(getBlog[0].body);
     }
   }, [getBlog]);
 
-  function displayData(jsonData: string) {
-    // Replace newline characters with <br> tags
-    const formattedDataValue = jsonData.replace(/\\n/g, '<br>');
-    setFormattedData(formattedDataValue);
-  }
-
   function extractMarkDown(markDown: string) {
-    const regex = /`([^`]*)`/g;
+    // Regular expression to match markdown content enclosed in backticks
+    const regex = /`([^`]*\n?[^`]*)`/;
+
+    // Executing the regular expression on the input string
     const matches = markDown.match(regex);
-    const extractedContent = matches ? matches[0].replace(/`/g, '').trim() : "";
-    const markdownWithoutBackticks = matches ? markDown.replace(matches[0], extractedContent) : markDown;
-    setExtractedString("`" + extractedContent + "`");
-    setMarkdownWithoutBackticks(markdownWithoutBackticks);
-  }
+
+    const extractedMarkdown = matches ? matches[1].replace(/\\n/g, '\n').trim() : "";
+
+    // Extracting context text before and after the markdown
+    const contextTextBefore = markDown.slice(0, matches ? matches.index : markDown.length);
+    const contextTextAfter = markDown.slice(matches ? matches.index + matches[0].length : 0);
+
+    // Combine context before and after
+    const contextCombined = contextTextBefore + contextTextAfter;
+
+    // Printing extracted markdown and context text
+    console.log("Extracted Markdown:", extractedMarkdown);
+    console.log("Context Combined:", contextCombined);
+
+    setExtractedMarkdown("`"+extractedMarkdown+"`");
+    setContext(contextCombined);
+}
+
 
   return (
     <>
@@ -67,14 +74,18 @@ export default function BlogPage({ params }: { params: { _id: string } }) {
                   <h1>{c.title}</h1>
                 </div>
                 <div className='flex ml-5 mr-5 mb-5 justify-center relative'>
-                {formattedData && (
+                  {extractedMarkdown ? (
                     <>
-                    
-                      {markdownWithoutBackticks !== null && (
-                        <div dangerouslySetInnerHTML={{ __html: markdownWithoutBackticks }} />
+                      {context !== null && (
+                        <div dangerouslySetInnerHTML={{ __html: context }} />
                       )}
-                      {/* Assuming extractedMarkdown is another piece of content to render */}
                       <Markdown text={extractedMarkdown} />
+                    </>
+                  ) : (
+                    <>
+                      {context !== null && (
+                        <div dangerouslySetInnerHTML={{ __html: context }} />
+                      )}
                     </>
                   )}
                 </div>
